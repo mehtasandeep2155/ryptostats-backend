@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
   SwaggerModule.setup('api/docs', app, createDocument(app));
-  await app.listen(3302);
+  await app.listen(process.env.APP_PORT || 3302);
   console.info('SERVER IS RUNNING ON PORT', process.env.APP_PORT || 3302);
 }
 bootstrap();

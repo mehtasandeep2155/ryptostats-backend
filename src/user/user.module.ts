@@ -4,6 +4,8 @@ import { UserController } from './user.controller';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from 'src/shared/prisma/prisma.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { CompanyService } from 'src/company/company.service';
+import { SubcompanyService } from 'src/company/subcompany/subcompany.service';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
       },
     }),
   ],
+  providers: [UserService, CompanyService, SubcompanyService],
   controllers: [UserController],
-  providers: [UserService],
 })
 export class UserModule {}

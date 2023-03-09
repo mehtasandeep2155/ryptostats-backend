@@ -14,15 +14,17 @@ import { UserCreatedDto } from './dto/userCreated.dto';
 import { RoleGuard } from '../shared/roleGuard/role/role.guard';
 import { Roles } from '../shared/roleGuard/roles/roles.decorator';
 import { Delete } from '@nestjs/common/decorators';
-// import { CompanyDto } from '.././company/dto/company.dto';
-// import { CompanyService } from '../company/company.service';
-// import { SubcompanyService } from '../company/subcompany/subcompany.service';
-// import { SubCompanyDto } from '../company/subcompany/dto/subcompany.dto';
+import { CompanyDto } from '.././company/dto/company.dto';
+import { CompanyService } from '../company/company.service';
+import { SubcompanyService } from '../company/subcompany/subcompany.service';
+import { SubCompanyDto } from '../company/subcompany/dto/subcompany.dto';
 
 @Controller()
 export class UserController {
   constructor(
-    private readonly userService: UserService, // private readonly companyService: CompanyService, // private readonly subcompanyService: SubcompanyService,
+    private readonly userService: UserService,
+    private readonly companyService: CompanyService,
+    private readonly subcompanyService: SubcompanyService,
   ) {}
 
   @Get()
@@ -42,69 +44,57 @@ export class UserController {
     return await this.userService.handleUserCreated(data);
   }
 
-  // @Get('company')
-  // async getCompanies() {
-  //   return this.companyService.get();
-  // }
-
-  // @Get('company/:id')
-  // async getCompany(@Param('id') id: string) {
-  //   return this.companyService.getById(id);
-  // }
-
-  // @Post('company')
-  // async createCompany(@Body() dto: CompanyDto) {
-  //   return this.companyService.createCompany(dto);
-  // }
-
-  // @Patch('company/:id')
-  // async updateCompany(@Param('id') id: string, @Body() dto: CompanyDto) {
-  //   return this.companyService.updateCompany(id, dto);
-  // }
-
-  // @Delete('company/:id')
-  // async deleteCompany(@Param('id') id: string) {
-  //   return this.companyService.delete(id);
-  // }
-
-  // @Get('subcompany')
-  // async getSubCompanies() {
-  //   return this.subcompanyService.get();
-  // }
-
-  // @Get('subcompany/:id')
-  // async getSubCompany(@Param('id') id: string) {
-  //   return this.subcompanyService.getById(id);
-  // }
-
-  // @Post('subcompany')
-  // async createSubCompany(@Body() dto: SubCompanyDto) {
-  //   return this.subcompanyService.create({
-  //     data: {
-  //       ...dto,
-  //     },
-  //   });
-  // }
-
-  // @Patch('subcompany/:id')
-  // async updateSubCompany(@Param('id') id: string, @Body() dto: SubCompanyDto) {
-  //   return this.subcompanyService.update(id, dto);
-  // }
-
-  // @Delete('subcompany/:id')
-  // async deleteSubCompany(@Param('id') id: string) {
-  //   return this.subcompanyService.delete(id);
-  // }
-
-  // microservices
-
-  @EventPattern('user_created')
-  handleUserCreated(data: UserCreatedDto) {
-    this.userService.handleUserCreated(data);
+  @Get('company')
+  async getCompanies() {
+    return this.companyService.get();
   }
 
-  @MessagePattern({ cmd: 'get_user' })
-  getUser() {
-    return this.userService.getUser();
+  @Get('company/:id')
+  async getCompany(@Param('id') id: string) {
+    return this.companyService.getById(id);
+  }
+
+  @Post('company')
+  async createCompany(@Body() dto: CompanyDto) {
+    return this.companyService.createCompany(dto);
+  }
+
+  @Patch('company/:id')
+  async updateCompany(@Param('id') id: string, @Body() dto: CompanyDto) {
+    return this.companyService.updateCompany(id, dto);
+  }
+
+  @Delete('company/:id')
+  async deleteCompany(@Param('id') id: string) {
+    return this.companyService.delete(id);
+  }
+
+  @Get('subcompany')
+  async getSubCompanies() {
+    return this.subcompanyService.get();
+  }
+
+  @Get('subcompany/:id')
+  async getSubCompany(@Param('id') id: string) {
+    return this.subcompanyService.getById(id);
+  }
+
+  @Post('subcompany')
+  async createSubCompany(@Body() dto: SubCompanyDto) {
+    return this.subcompanyService.create({
+      data: {
+        ...dto,
+      },
+    });
+  }
+
+  @Patch('subcompany/:id')
+  async updateSubCompany(@Param('id') id: string, @Body() dto: SubCompanyDto) {
+    return this.subcompanyService.update(id, dto);
+  }
+
+  @Delete('subcompany/:id')
+  async deleteSubCompany(@Param('id') id: string) {
+    return this.subcompanyService.delete(id);
   }
 }
