@@ -1,0 +1,32 @@
+service: erp-backend
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  
+custom:
+    serverless-offline:
+    httpPort: 3400
+
+package:
+  exclude:
+    - 'node_modules/**'
+    - 'node_modules/node-fetch/**'
+  excludeDevDependencies: true
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
